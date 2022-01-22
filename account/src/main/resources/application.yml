@@ -1,0 +1,31 @@
+# 应用名称
+spring:
+  application:
+     name: account
+#数据库配置
+  datasource:
+       url: jdbc:mysql://localhost:3306/jdbcdemo?useSSL=false&serverTimezone=UTC
+       username: root
+       password: 7923
+  cloud:
+       seata: ## 注意account-seata-service-group需要与服务端和客户端的配置文件保持一致
+          tx-service-group: account-seata-service-group
+          service:
+              # 事务组对应的集群民称
+              vgroup-mapping.account-seata-service-group: default
+              # seata-server的地址
+              grouplist.default: 127.0.0.1:8091
+          enabled: true
+
+server:
+  port: 7903
+
+#eureka实例注册
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7910/eureka/
+  instance:
+      instance-id: account
+      prefer-ip-address: true
+

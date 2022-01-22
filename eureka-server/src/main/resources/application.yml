@@ -1,0 +1,27 @@
+# 应用名称
+spring:
+ application:
+   name: eureka-server
+server:
+    port: 7910
+#将当前服务作为eureka的注册容器，并且设置自身不作为服务注册到容器中
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:7910/eureka/
+
+  server:
+   # 关闭eureka的自我保护机制
+    enable-self-preservation: true
+    #设置开启自我保护机制的阈值
+    renewal-percent-threshold: 0.85
+    #剔除下线服务的轮询时间间隔
+    # eviction-interval-timer-in-ms: 1000
+    #关闭一级缓存，让客户端直接从二级缓存去读取，省去各缓存之间的同步的时间
+    use-read-only-response-cache: false
+    #readOnlyCacheMap从readWriteCacheMap当中读取服务的间隔时间，默认为30秒，设置为1秒可以提高服务查询的效率
+    response-cache-update-interval-ms: 1000
+
+

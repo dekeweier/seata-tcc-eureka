@@ -1,0 +1,30 @@
+# 应用名称
+spring:
+ application:
+   name: seata-order
+#数据库配置
+ datasource:
+     url: jdbc:mysql://localhost:3306/crm?useSSL=false&serverTimezone=UTC
+     username: root
+     password: 7923
+ cloud:
+       seata: ## 注意seata-order-seata-service-group需要与服务端和客户端的配置文件保持一致
+         tx-service-group: seata-order-seata-service-group
+         service:
+          # 事务组对应的集群民称
+           vgroupMapping.seata-order-seata-service-group: default
+          # seata-server的地址
+           grouplist.default: 127.0.0.1:8091
+         enabled: true
+server:
+  port: 7902
+
+#eureka实例注册
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7910/eureka/
+  instance:
+      instance-id: seata-order
+      prefer-ip-address: true
+
